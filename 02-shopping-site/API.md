@@ -44,15 +44,111 @@ Authorization: Token <token>
 
 ### User 
 
+#### `POST /users` - signup / register a new user 
+
+#### `POST /users/login` - login a user 
+
+#### `POST /users/logout` 🔐 - logout a user
+
+#### `GET /users/{user_id}` 🔐 - get user details
+
+#### `PATCH /users/me` 🔐 - update user details
+
+
 ### Address
+
+#### `GET /users/me/addresses` 🔐 - list all addresses
+
+#### `POST /users/me/addresses` 🔐 - add a new address
+
+#### `PATCH /users/me/addresses/{address_id}` 🔐 - update an address
+
+#### `DELETE /users/me/addresses/{address_id}` 🔐 - delete an address
 
 ### Product 
 
+#### `POST /products` 🔐👮‍♀️ - add a new product
+
+#### `PATCH /products/{product_id}` 🔐👮‍♀️ - update a product
+
+#### `GET /products` - list all products
+- `?vendor_id=123` - filter by vendor
+- `?search=keyword` - search by name
+- `?min_price=100&max_price=200` - filter by price
+
+#### `GET /products/{group_id/product_id}` - get details of a product
+
+Variant A: Only search by `group_id`
+- if only one product of groupid exists
+  - `[{title, price, ...}]`
+- if multiple products of groupid exists
+  - `[{title, price, ...}, {title, price, ...}, {title, price, ...}]`
+
+Variant B: Only search by `group_id`
+- if only one product of groupid exists
+  - `{title, price, ...}`
+- if multiple products of groupid exists
+  - `{title, price, ..., variants: [{color}, {color}, {color}]}`
+
+Variant C: Only search by `product_id`
+- in all cases - similar response (`grouped_products` empty for single product)
+    ```
+    {
+        title,
+        price,
+        color
+        ...
+        grouped_products: [
+            {title, price, color, ...},
+            {title, price, color, ...},
+        ]
+    }
+    ```
+
 ### Cart 
+
+#### `GET /cart` 🔐 - list all products in cart
+
+#### `PUT /cart/{product_id}` 🔐 - add product to cart
+ - `?buy_now=true` - will create temp cart to turn into order immediately
+ - body : `{quantity}`
+
+#### `PATCH /cart/{product_id}` 🔐 - update product in cart
+ - body : `{quantity_incr: }`
+ - body : `{quantity_decr: }`
+ - > NOTE: We can use `PUT` with absolute quantity and remove this endpoint
+
+#### `DELETE /cart/{product_id}` 🔐 - remove product from cart
+
+#### `DELETE /cart` 🔐 - clear all products from cart
+
+### Vendor Orders 
+
+#### `GET /vendor_orders` 🔐 - list all orders for vendor
+
+#### `GET /vendor_orders/{order_id}` 🔐 - get details of an order
 
 ### Order 
 
+#### `POST /orders` 🔐 - create a new order with existing cart
+ - body : `{billing_address_id, shipping_address_id}`
+ - body + `{cart_id}` if multiple carts/user is allowed
+
+#### `GET /orders` 🔐 - list all orders
+- `?sort=created_desc` - filter by created date
+
+#### `GET /orders/{order_id}` 🔐 - get details of an order
+
+#### `PATCH /orders/{order_id}` 🔐 - cancel an order
+ - body : `{status: "cancelled"}`    
+
+
 ### Payment
+
+#### `GET /orders/{order_id}/payments/{payment_id}` 🔐 - get payment status
+
+#### `PATCH /orders/{order_id}/payments/{payment_id}` 🔐 - update payment status
+ - body : `{pg_txn_id: "....", status: "success"}`
 
 
 

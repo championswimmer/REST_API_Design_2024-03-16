@@ -39,6 +39,7 @@
 
 ### Payment 
 - id 
+- pg_txn_id
 - created_at
 - updated_at
 - method            (credit_card, debit_card, net_banking, wallet, cash_on_delivery)
@@ -68,6 +69,8 @@
 - order_id
 - product_id
 - quantity
+- purchase_marked_price         // in INR, paise
+- purchase_sell_price           // in INR, paise
 
 #### Order Payment
 - order_id
@@ -115,3 +118,8 @@
 - User can pay for order
   - User can select payment method
 - User can see payment status
+
+
+### Payment Flow 
+
+![](./payment_flow.png)
