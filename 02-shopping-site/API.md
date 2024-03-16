@@ -50,7 +50,7 @@ Authorization: Token <token>
 
 #### `POST /users/logout` 🔐 - logout a user
 
-#### `GET /users/{user_id}` 🔐 - get user details
+#### `GET /users/{user_id/user_email}` 🔐 - get user details
 
 #### `PATCH /users/me` 🔐 - update user details
 
