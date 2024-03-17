@@ -60,8 +60,40 @@ Posts can have 1 media
 
 ## Functional Requirements
 
+### User 
+- Guest can register themselves as an user
+- Guest can login (if they had registered themselves)
+- Users can update their profile
+- Users can (un)follow other users
+
+### Post 
+- Guests can see all posts 
+  - Sort by created_at
+  - Sort by likes
+  - (has to be pagniated)
+  - Filter by userid 
+- Users can see all posts by people they follow
+- Users can create a post
+  - Users can attach a media in a post
+- Users can reply to a post
+- Users can quote a post
+  - Quotes may/maynot have a body (i.e. simply retweet)
+- Users can (un)like a post
+- Users can delete their own post
+- Guests can see who has liked a post
+  - (has to be pagniated)
+- Guests can see who has retweeted/quoted a post
+  - (has to be pagniated)
+- Guests can see all replies (including nested replies) to a post
+  - (has to be pagniated)
+
+### Media 
+- Users can upload media 
+- Users can delete their own media
 
 
 ## Notes 
 
 ![](./post_relationship.png)
+
+![](./m-n-relationship.png)
