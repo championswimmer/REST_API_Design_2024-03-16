@@ -9,7 +9,8 @@ Posts can have 1 media
 - id
 - created_at
 - updated_at
-- username
+- username                  // unique
+- display_name              // non-unique
 - email
 - password
 - image_id                 // references (media.id)
@@ -26,7 +27,9 @@ Posts can have 1 media
 - reply_to_post_id      // references (post.id)
 - reply_parent_post_id  // references (post.id)
 - quoted_post_id        // references (post.id)
-
+- likes_count           // refresh from post_like table
+- retweets_count        // refresh from post table
+- replies_count         // refresh from post table 
 
 ### Media 
 - id
@@ -63,6 +66,9 @@ Posts can have 1 media
 ### User 
 - Guest can register themselves as an user
 - Guest can login (if they had registered themselves)
+- Guests can see profile of users
+- Guests can search for users by display name
+- - Guests can search for users by username
 - Users can update their profile
 - Users can (un)follow other users
 
