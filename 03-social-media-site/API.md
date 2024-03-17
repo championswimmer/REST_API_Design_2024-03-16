@@ -47,19 +47,60 @@ Authorization: Token <token>
 
 #### `POST /users` - Register/signup user
 
+**Responses**
+- `200 OK` - Success
+- `201 Created` - User created
+- `400 Bad Request` - Cannot create user
+- `409 Conflict` - User already exists
+
 #### `POST /users/login` - Login user
+
+**Responses**
+- `200 OK` - Success
+- `400 Bad Request` - Cannot create user
+- `401 Unauthorized` - User does not exist
+- `404 Not found` - User not found
 
 #### `GET /users` - Search users
  - `?display_name=Arnav` // contains or like %Arnav%
  - `?username=arnav` // contains or like %arnav%
 
+**Responses**
+- `200 OK` - Success
+- `401 Unauthorized` - User does not exist
+- `404 Not found` - User not found
+
 #### `GET /users/{@username/userid}` - Get user profile
+
+**Responses**
+- `200 OK` - Success
+- `401 Unauthorized` - User does not exist
+- `404 Not found` - User not found
 
 #### `PATCH /users/me` 🔐 - Update user profile
 
+**Responses**
+- `202 Accepted` - Able to edit
+- `401 Unauthorized` Not authenticated
+- `400 - Bad Request` Invalid user
+
+
 #### `PUT /users/{username}/follow` 🔐 - Follow a user
 
+**Responses**
+- `200 OK` - Success
+- `201 Created` - Followed
+- `401 Unauthorized` Not authenticated
+
+
+
 #### `DELETE /users/{username}/follow` 🔐 - Un/Follow a user
+
+**Responses**
+- `200 OK` - Success
+= `202 Accepted` - Unfollowed
+- `401 Unauthorized` Not authenticated
+- `404 Not found` - User not found
 
 ### Posts 
 
@@ -70,6 +111,7 @@ Authorization: Token <token>
 
 **Responses**
 - `200 OK` - Success
+- `204	No Content` - No posts from user
 - `404 Not Found` - User not found
 
 #### `GET /posts` - Get all posts
@@ -85,6 +127,9 @@ Authorization: Token <token>
 **Responses**
 - `200 OK` - Success
   - Can be empty array `[]` in data
+- `204	No Content` - No posts
+- `404 Not Found` - User not found
+- `401 Unauthorized` Not authenticated // for query only_following=true
 
 #### `POST /posts` 🔐 - Create a new post
  - body : `{body, ...}`
@@ -92,20 +137,57 @@ Authorization: Token <token>
  - body : `{reply_to_post_id}` - if it is a reply 
  - body : `{quoted_post_id}` - if it is a quote
 
+
+**Responses**
+- `200 OK` - Success
+- `201 Created` - Post created
+- `401 Unauthorized` Not authenticated
+
 #### `GET /posts/{postid}` - Get a post
+
+**Responses**
+- `200 OK` - Success
+- `401 Unauthorized` - Post does not exist
+- `404 Not found` - Post not found
 
 #### `PUT /posts/{postid}/like` 🔐 - Like a post
 
+**Responses**
+- `200 OK` - Success
+- `201 Created` - Liked
+- `401 Unauthorized` Not authenticated
+
 #### `DELETE /posts/{postid}/like` 🔐 - Unlike a post
 
+**Responses**
+- `200 OK` - Success
+- `202 Accepted` - Unfollowed
+- `401 Unauthorized` Not authenticated
+- `404 Not found` - User not found
+
 #### `GET /posts/{postid}/likes` - Get all users who have liked
+
+**Responses**
+- `200 OK` - Success
+- `204	No Content` - No one liked
 
 ### Media
 
 #### `POST /media` 🔐 - Upload media
  - body : `<bytes>` // media file : multipart/streaming
 
+ **Responses**
+- `201 Created` - Media added
+- `401 Unauthorized` Not authenticated
+- `415	Unsupported Media Type` - Media type not supported
+
 #### `DELETE /media/{mediaid}` 🔐 - Delete media
+
+**Responses**
+- `200 OK` - Success
+- `202 Accepted` - Deleted
+- `401 Unauthorized` Not authenticated
+- `404 Not found` - Media not found
 
 ## Notes
 
